@@ -155,8 +155,8 @@ export const PwFixScene: React.FC = () => {
         />
         <Item
           n="03"
-          ar="MFA"
-          en="Multi-factor authentication"
+          ar="التحقق الثنائي"
+          en="Two-factor authentication"
           at={102}
           icon={
             <>

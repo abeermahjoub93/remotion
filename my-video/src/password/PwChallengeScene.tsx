@@ -108,7 +108,7 @@ export const PwChallengeScene: React.FC = () => {
           }}
         >
           <Check ar="كلمة مروره فريدة" en="Its password is unique" at={50} />
-          <Check ar="MFA مفعّل" en="MFA is enabled" at={80} />
+          <Check ar="التحقق الثنائي مفعّل" en="Two-factor authentication is on" at={80} />
         </div>
       </AbsoluteFill>
 

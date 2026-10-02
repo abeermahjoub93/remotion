@@ -16,7 +16,8 @@ Follow these for every new episode, unless the user says otherwise.
 - Fonts: Almarai (Arabic), Barlow (English body), Barlow Condensed (English labels).
 - Paper background with faint grid + diagonal hatching; header pills
   (wordmark left, "حصّن نفسك رقمياً" right). Text out of the top/bottom 250 px.
-- Spelling: SecureLogX / سيكيورلوغإكس; الالتزام (never الامتثال).
+- Spelling: SecureLogX / سيكيورلوغإكس; الالتزام (never الامتثال);
+  MFA / 2FA on screen in Arabic = التحقق الثنائي (English: two-factor authentication).
 
 ## Copy
 - Every line bilingual: Arabic first (large, Almarai ExtraBold), English under it (smaller, Slate/Gold).
