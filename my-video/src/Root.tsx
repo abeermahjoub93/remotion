@@ -1,4 +1,10 @@
 import { Composition, Folder } from "remotion";
+import { OtpVideo } from "./OtpVideo";
+import { OtpCtaScene } from "./otp/OtpCtaScene";
+import { OtpDoScene } from "./otp/OtpDoScene";
+import { OtpDontScene } from "./otp/OtpDontScene";
+import { OtpHookScene } from "./otp/OtpHookScene";
+import { OtpRehookScene } from "./otp/OtpRehookScene";
 import { PasswordVideo } from "./PasswordVideo";
 import { PwChallengeScene } from "./password/PwChallengeScene";
 import { PwCtaScene } from "./password/PwCtaScene";
@@ -34,6 +40,21 @@ export const RemotionRoot: React.FC = () => {
         width={1080}
         height={1920}
       />
+      <Composition
+        id="UnexpectedOtp"
+        component={OtpVideo}
+        durationInFrames={1268}
+        fps={30}
+        width={1080}
+        height={1920}
+      />
+      <Folder name="Otp-scenes">
+        <Composition id="OtpHook" component={OtpHookScene} durationInFrames={180} fps={30} width={1080} height={1920} />
+        <Composition id="OtpDont" component={OtpDontScene} durationInFrames={300} fps={30} width={1080} height={1920} />
+        <Composition id="OtpRehook" component={OtpRehookScene} durationInFrames={180} fps={30} width={1080} height={1920} />
+        <Composition id="OtpDo" component={OtpDoScene} durationInFrames={270} fps={30} width={1080} height={1920} />
+        <Composition id="OtpCta" component={OtpCtaScene} durationInFrames={180} fps={30} width={1080} height={1920} />
+      </Folder>
       <Folder name="Password-scenes">
         <Composition id="PwHook" component={PwHookScene} durationInFrames={210} fps={30} width={1080} height={1920} />
         <Composition id="PwReuse" component={PwReuseScene} durationInFrames={390} fps={30} width={1080} height={1920} />
