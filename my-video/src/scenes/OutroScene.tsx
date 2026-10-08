@@ -1,9 +1,10 @@
-import { AbsoluteFill, interpolate, useCurrentFrame } from "remotion";
+import { AbsoluteFill, Img, interpolate, staticFile, useCurrentFrame } from "remotion";
 import { AR, Background, C, EN, Logo, ShieldIcon, clamp, easeOut, useEnter } from "../brand";
 import { Sfx } from "../Sfx";
 
-// End card: tagline, website and handles (Brand Guidelines, section 2 and 10)
-export const OutroScene: React.FC = () => {
+// End card: tagline, website and handles (Brand Guidelines, section 2 and 10).
+// `mark` picks the emblem: the series shield, or the official SX app icon.
+export const OutroScene: React.FC<{ readonly mark: "shield" | "sx" }> = ({ mark }) => {
   const frame = useCurrentFrame();
   const shield = useEnter(4, 11);
   const logoReveal = interpolate(frame, [12, 30], [0, 100], { ...clamp, easing: easeOut });
@@ -16,7 +17,13 @@ export const OutroScene: React.FC = () => {
       <Background />
       <div style={{ position: "absolute", top: 470, left: 0, right: 0, display: "flex", flexDirection: "column", alignItems: "center" }}>
         <div style={{ scale: `${shield}`, rotate: `${(1 - shield) * -30}deg` }}>
-          <ShieldIcon size={170} />
+          {mark === "sx" ? (
+            <div style={{ width: 190, height: 190, borderRadius: 190 * 0.12, background: C.green, display: "flex", alignItems: "center", justifyContent: "center" }}>
+              <Img src={staticFile("img/sx-white.png")} style={{ width: 130 }} />
+            </div>
+          ) : (
+            <ShieldIcon size={170} />
+          )}
         </div>
         <div style={{ marginTop: 44, clipPath: `inset(0 ${100 - logoReveal}% 0 0)` }}>
           <Logo width={780} />

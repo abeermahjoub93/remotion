@@ -8,6 +8,9 @@ Follow these for every new episode, unless the user says otherwise.
   cut from the original episode just as the screen turns fully green).
   The first scene peels that green panel away diagonally (see `PwHookScene`).
 - End with `OutroScene` (logo, tagline أمن تقدر تقوّيه، والتزام تقدر تثبته, www.sx.sa).
+- Alternative opener (all motion graphics, official logo only): `LogoIntroScene` —
+  the official SX app icon (`public/img/sx-white.png`, from the brand guide) and the
+  wordmark; pair it with `<OutroScene mark="sx" />`. Used for the QR episode.
 
 ## Brand (SecureLogX Brand Guidelines v1.0) — shared kit in `src/brand.tsx`
 - Colours: SX Green #006B35, Deep Green #004D26 (dark scenes), Gold #CCB58B as

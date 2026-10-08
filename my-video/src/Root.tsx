@@ -1,5 +1,12 @@
 import { Composition, Folder } from "remotion";
 import { OtpVideo } from "./OtpVideo";
+import { LogoIntroScene } from "./qr/LogoIntroScene";
+import { QrAskScene } from "./qr/QrAskScene";
+import { QrCtaScene } from "./qr/QrCtaScene";
+import { QrHookScene } from "./qr/QrHookScene";
+import { QrRehookScene } from "./qr/QrRehookScene";
+import { QrRouteScene } from "./qr/QrRouteScene";
+import { QrVideo } from "./QrVideo";
 import { OtpCtaScene } from "./otp/OtpCtaScene";
 import { OtpDoScene } from "./otp/OtpDoScene";
 import { OtpDontScene } from "./otp/OtpDontScene";
@@ -48,6 +55,22 @@ export const RemotionRoot: React.FC = () => {
         width={1080}
         height={1920}
       />
+      <Composition
+        id="QrCodeDoorway"
+        component={QrVideo}
+        durationInFrames={1190}
+        fps={30}
+        width={1080}
+        height={1920}
+      />
+      <Folder name="Qr-scenes">
+        <Composition id="LogoIntro" component={LogoIntroScene} durationInFrames={100} fps={30} width={1080} height={1920} />
+        <Composition id="QrHook" component={QrHookScene} durationInFrames={180} fps={30} width={1080} height={1920} />
+        <Composition id="QrRoute" component={QrRouteScene} durationInFrames={180} fps={30} width={1080} height={1920} />
+        <Composition id="QrAsk" component={QrAskScene} durationInFrames={330} fps={30} width={1080} height={1920} />
+        <Composition id="QrRehook" component={QrRehookScene} durationInFrames={150} fps={30} width={1080} height={1920} />
+        <Composition id="QrCta" component={QrCtaScene} durationInFrames={180} fps={30} width={1080} height={1920} />
+      </Folder>
       <Folder name="Otp-scenes">
         <Composition id="OtpHook" component={OtpHookScene} durationInFrames={180} fps={30} width={1080} height={1920} />
         <Composition id="OtpDont" component={OtpDontScene} durationInFrames={300} fps={30} width={1080} height={1920} />
@@ -70,7 +93,7 @@ export const RemotionRoot: React.FC = () => {
         <Composition id="CoreMessage" component={CoreMessageScene} durationInFrames={150} fps={30} width={1080} height={1920} />
         <Composition id="Cta" component={CtaScene} durationInFrames={210} fps={30} width={1080} height={1920} />
         <Composition id="Engage" component={EngageScene} durationInFrames={150} fps={30} width={1080} height={1920} />
-        <Composition id="Outro" component={OutroScene} durationInFrames={140} fps={30} width={1080} height={1920} />
+        <Composition id="Outro" component={OutroScene} durationInFrames={140} fps={30} width={1080} height={1920} defaultProps={{ mark: "shield" as const }} />
       </Folder>
     </>
   );

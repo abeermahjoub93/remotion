@@ -62,7 +62,7 @@ export const PasswordVideo: React.FC = () => {
         timing={linearTiming({ durationInFrames: 14 })}
       />
       <TransitionSeries.Sequence name="Outro" durationInFrames={140} premountFor={fps}>
-        <OutroScene />
+        <OutroScene mark="shield" />
       </TransitionSeries.Sequence>
     </TransitionSeries>
   );
