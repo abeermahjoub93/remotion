@@ -37,6 +37,12 @@ Follow these for every new episode, unless the user says otherwise.
   from `src/Mascot.tsx`; it springs in, bobs, and squashes on each pose change.
   `QrMascotVideo` shows how to layer it over a scene.
 
+- Talking cartoon host: `src/cartoon/Character.tsx` is a vector rig of the character
+  (arms, legs, head tilt, blinking, talking mouth, moods, held phone/magnifier/shield).
+  Lines go in `<SpeechBubble>` (Arabic typed word by word, English under it) and play
+  the synthesized `babble` voice; `mouthAt(frame, speaking(lines))` moves the mouth.
+  `CartoonQrVideo` is the reference episode.
+
 ## Sound
 - Sound effects only, no music. Effects are synthesized by `scripts/make-sfx.py`
   into `public/sfx/` and placed with `<Sfx name at volume />`.

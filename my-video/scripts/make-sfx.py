@@ -178,3 +178,22 @@ x = np.sin(2 * np.pi * np.cumsum(f) / SR) * np.exp(-tt * 9)
 x += lp(rng.standard_normal(len(tt)), 400) * np.exp(-tt * 30) * 0.4
 save('thud.wav', x, 0.8)
 print('done')
+
+# babble: cartoon "voice" made of gibberish syllables (formant-filtered pulse train)
+vowels = [(700, 1200), (400, 2000), (550, 900), (300, 2300), (600, 1700)]
+x = np.zeros(int(SR * 10))
+p = 0.0
+while p < 9.8:
+    L = rng.uniform(0.07, 0.13)
+    tt = t(L)
+    f0 = rng.uniform(270, 400) * (1 + 0.15 * np.sin(np.linspace(0, np.pi, len(tt))) * rng.choice([-1, 1]))
+    phase = np.cumsum(f0) / SR
+    pulse = 2 * (phase % 1) - 1
+    f1, f2 = vowels[rng.integers(len(vowels))]
+    syl = bp(pulse, f1 * 0.7, f1 * 1.3) + 0.6 * bp(pulse, f2 * 0.85, f2 * 1.15)
+    syl *= env(len(tt), 0.012, 0.9, 2.2)
+    i = int(p * SR)
+    x[i:i + len(syl)] += syl
+    p += L + rng.uniform(0.015, 0.05)
+save('babble.wav', lp(x, 5000), 0.6)
+print('babble done')

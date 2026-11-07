@@ -3,6 +3,7 @@ import { Sequence, staticFile } from "remotion";
 
 export type SfxName =
   | "alert"
+  | "babble"
   | "click"
   | "clock-fast"
   | "ding"

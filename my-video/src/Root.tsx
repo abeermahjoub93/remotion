@@ -6,6 +6,14 @@ import { QrCtaScene } from "./qr/QrCtaScene";
 import { QrHookScene } from "./qr/QrHookScene";
 import { QrRehookScene } from "./qr/QrRehookScene";
 import { QrRouteScene } from "./qr/QrRouteScene";
+import { CartoonQrVideo } from "./CartoonQrVideo";
+import { CharacterSheet } from "./cartoon/CharacterSheet";
+import { CtAskScene } from "./cartoon/CtAskScene";
+import { CtCtaScene } from "./cartoon/CtCtaScene";
+import { CtDoorScene } from "./cartoon/CtDoorScene";
+import { CtHelloScene } from "./cartoon/CtHelloScene";
+import { CtHookScene } from "./cartoon/CtHookScene";
+import { CtRouteScene } from "./cartoon/CtRouteScene";
 import { QrMascotVideo } from "./QrMascotVideo";
 import { QrVideo } from "./QrVideo";
 import { OtpCtaScene } from "./otp/OtpCtaScene";
@@ -72,6 +80,23 @@ export const RemotionRoot: React.FC = () => {
         width={1080}
         height={1920}
       />
+      <Composition
+        id="QrCartoon"
+        component={CartoonQrVideo}
+        durationInFrames={1532}
+        fps={30}
+        width={1080}
+        height={1920}
+      />
+      <Folder name="Cartoon-scenes">
+        <Composition id="CtHello" component={CtHelloScene} durationInFrames={150} fps={30} width={1080} height={1920} />
+        <Composition id="CtHook" component={CtHookScene} durationInFrames={190} fps={30} width={1080} height={1920} />
+        <Composition id="CtRoute" component={CtRouteScene} durationInFrames={220} fps={30} width={1080} height={1920} />
+        <Composition id="CtAsk" component={CtAskScene} durationInFrames={400} fps={30} width={1080} height={1920} />
+        <Composition id="CtDoor" component={CtDoorScene} durationInFrames={196} fps={30} width={1080} height={1920} />
+        <Composition id="CtCta" component={CtCtaScene} durationInFrames={220} fps={30} width={1080} height={1920} />
+      </Folder>
+      <Composition id="CharacterSheet" component={CharacterSheet} durationInFrames={1} fps={30} width={1080} height={1920} />
       <Folder name="Qr-scenes">
         <Composition id="LogoIntro" component={LogoIntroScene} durationInFrames={100} fps={30} width={1080} height={1920} />
         <Composition id="QrHook" component={QrHookScene} durationInFrames={180} fps={30} width={1080} height={1920} />
