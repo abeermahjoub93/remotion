@@ -33,7 +33,7 @@ export const QrVideo: React.FC = () => {
         timing={linearTiming({ durationInFrames: 14 })}
       />
       <TransitionSeries.Sequence name="Ask" durationInFrames={330} premountFor={fps}>
-        <QrAskScene />
+        <QrAskScene signLeft={210} />
       </TransitionSeries.Sequence>
       <TransitionSeries.Transition
         presentation={fade()}

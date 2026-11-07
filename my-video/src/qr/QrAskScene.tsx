@@ -64,7 +64,8 @@ const Flag: React.FC<{ readonly children: React.ReactNode; readonly ltr?: boolea
 );
 
 // "Ask: who provided it, does the context make sense and where did it actually take me?"
-export const QrAskScene: React.FC = () => {
+// `signLeft` moves the parking sign aside to make room for the character.
+export const QrAskScene: React.FC<{ readonly signLeft: number }> = ({ signLeft }) => {
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
   const sign = enterAt(frame, fps, 2, 13);
@@ -81,7 +82,7 @@ export const QrAskScene: React.FC = () => {
         style={{
           position: "absolute",
           top: 210,
-          left: 540 - 330,
+          left: signLeft,
           width: 660,
           height: 500,
           borderRadius: 30,

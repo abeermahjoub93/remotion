@@ -6,6 +6,7 @@ import { QrCtaScene } from "./qr/QrCtaScene";
 import { QrHookScene } from "./qr/QrHookScene";
 import { QrRehookScene } from "./qr/QrRehookScene";
 import { QrRouteScene } from "./qr/QrRouteScene";
+import { QrMascotVideo } from "./QrMascotVideo";
 import { QrVideo } from "./QrVideo";
 import { OtpCtaScene } from "./otp/OtpCtaScene";
 import { OtpDoScene } from "./otp/OtpDoScene";
@@ -63,11 +64,19 @@ export const RemotionRoot: React.FC = () => {
         width={1080}
         height={1920}
       />
+      <Composition
+        id="QrCodeDoorwayMascot"
+        component={QrMascotVideo}
+        durationInFrames={1190}
+        fps={30}
+        width={1080}
+        height={1920}
+      />
       <Folder name="Qr-scenes">
         <Composition id="LogoIntro" component={LogoIntroScene} durationInFrames={100} fps={30} width={1080} height={1920} />
         <Composition id="QrHook" component={QrHookScene} durationInFrames={180} fps={30} width={1080} height={1920} />
         <Composition id="QrRoute" component={QrRouteScene} durationInFrames={180} fps={30} width={1080} height={1920} />
-        <Composition id="QrAsk" component={QrAskScene} durationInFrames={330} fps={30} width={1080} height={1920} />
+        <Composition id="QrAsk" component={QrAskScene} durationInFrames={330} fps={30} width={1080} height={1920} defaultProps={{ signLeft: 210 }} />
         <Composition id="QrRehook" component={QrRehookScene} durationInFrames={150} fps={30} width={1080} height={1920} />
         <Composition id="QrCta" component={QrCtaScene} durationInFrames={180} fps={30} width={1080} height={1920} />
       </Folder>

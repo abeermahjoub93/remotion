@@ -31,11 +31,17 @@ Follow these for every new episode, unless the user says otherwise.
 - Use fictional names/domains in examples; never imitate a real organisation.
   Don't show fake poll results.
 
+## Character
+- The SecureLogX character: 35 poses in `public/mascot/` (cut from the character sheet
+  with `scripts/cut-mascot.py`). Place it with `<Mascot poses x y height exitAt glow />`
+  from `src/Mascot.tsx`; it springs in, bobs, and squashes on each pose change.
+  `QrMascotVideo` shows how to layer it over a scene.
+
 ## Sound
 - Sound effects only, no music. Effects are synthesized by `scripts/make-sfx.py`
   into `public/sfx/` and placed with `<Sfx name at volume />`.
 - If a voiceover is supplied, time scenes to it and keep effects under it.
 
 ## Rendering in the cloud container
-REMOTION_BROWSER=/opt/pw-browsers/chromium_headless_shell-1194/chrome-linux/headless_shell \
+REMOTION_BROWSER=$(ls /opt/pw-browsers/chromium_headless_shell-*/*/*headless*shell | head -1) \
   npx remotion render <CompositionId> out/<name>.mp4 --codec=h264 --crf=18
