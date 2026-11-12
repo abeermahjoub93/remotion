@@ -1,4 +1,4 @@
-import { Composition, Folder } from "remotion";
+import { Composition, Folder, Still } from "remotion";
 import { OtpVideo } from "./OtpVideo";
 import { LogoIntroScene } from "./qr/LogoIntroScene";
 import { QrAskScene } from "./qr/QrAskScene";
@@ -7,6 +7,7 @@ import { QrHookScene } from "./qr/QrHookScene";
 import { QrRehookScene } from "./qr/QrRehookScene";
 import { QrRouteScene } from "./qr/QrRouteScene";
 import { CartoonQrVideo } from "./CartoonQrVideo";
+import { CisoPost } from "./posts/CisoPost";
 import { CharacterSheet } from "./cartoon/CharacterSheet";
 import { CtAskScene } from "./cartoon/CtAskScene";
 import { CtCtaScene } from "./cartoon/CtCtaScene";
@@ -80,6 +81,9 @@ export const RemotionRoot: React.FC = () => {
         width={1080}
         height={1920}
       />
+      <Folder name="Posts">
+        <Still id="CisoPost" component={CisoPost} width={1080} height={1350} />
+      </Folder>
       <Composition
         id="QrCartoon"
         component={CartoonQrVideo}
