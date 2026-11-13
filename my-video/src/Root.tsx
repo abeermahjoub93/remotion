@@ -8,6 +8,7 @@ import { QrRehookScene } from "./qr/QrRehookScene";
 import { QrRouteScene } from "./qr/QrRouteScene";
 import { CartoonQrVideo } from "./CartoonQrVideo";
 import { CisoPost } from "./posts/CisoPost";
+import { FakeInvoiceReel } from "./invoice/FakeInvoiceReel";
 import { CharacterSheet } from "./cartoon/CharacterSheet";
 import { CtAskScene } from "./cartoon/CtAskScene";
 import { CtCtaScene } from "./cartoon/CtCtaScene";
@@ -77,6 +78,14 @@ export const RemotionRoot: React.FC = () => {
         id="QrCodeDoorwayMascot"
         component={QrMascotVideo}
         durationInFrames={1190}
+        fps={30}
+        width={1080}
+        height={1920}
+      />
+      <Composition
+        id="FakeInvoiceReel"
+        component={FakeInvoiceReel}
+        durationInFrames={840}
         fps={30}
         width={1080}
         height={1920}
