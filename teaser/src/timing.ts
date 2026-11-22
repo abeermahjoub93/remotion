@@ -11,6 +11,12 @@ export const T = {
   ruleDraw: [123, 135], // then the rule draws across, 400 ms
   // 4.1–8.0 s hold: only pattern drift and dashboard breathing
 
+  // Day 1 ("numeral" design): the big number counts down from 6 to the day,
+  // one number every `step` frames, each sliding in over `countdownSlide` frames (300 ms)
+  countdown: { from: 6, start: 18, step: 15 },
+  countdownSlide: 9,
+  countdownTextDelay: 45, // tag/headline/date come in this many frames later, after the count lands
+
   slideDistance: 48, // px along each axis for the 45° slide-ins
   breathPeriod: 60, // frames; 7 s and 8 s are both whole periods, so the end loops cleanly
   breathAmplitude: 3, // ± px of blur

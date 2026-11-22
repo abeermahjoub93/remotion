@@ -12,7 +12,7 @@ export const RemotionRoot: React.FC = () => {
         fps={T.fps}
         width={1080}
         height={1350}
-        defaultProps={{ lang: "ar" as const, day: 6, width: 1080, height: 1350 }}
+        defaultProps={{ lang: "ar" as const, day: 6, design: "frame" as const, width: 1080, height: 1350 }}
       />
       <Composition
         id="Teaser-D6-AR-X"
@@ -21,7 +21,7 @@ export const RemotionRoot: React.FC = () => {
         fps={T.fps}
         width={1200}
         height={1200}
-        defaultProps={{ lang: "ar" as const, day: 6, width: 1200, height: 1200 }}
+        defaultProps={{ lang: "ar" as const, day: 6, design: "frame" as const, width: 1200, height: 1200 }}
       />
       <Composition
         id="Teaser-D6-EN"
@@ -30,7 +30,7 @@ export const RemotionRoot: React.FC = () => {
         fps={T.fps}
         width={1080}
         height={1350}
-        defaultProps={{ lang: "en" as const, day: 6, width: 1080, height: 1350 }}
+        defaultProps={{ lang: "en" as const, day: 6, design: "frame" as const, width: 1080, height: 1350 }}
       />
       <Composition
         id="Teaser-D1-AR"
@@ -39,7 +39,7 @@ export const RemotionRoot: React.FC = () => {
         fps={T.fps}
         width={1080}
         height={1350}
-        defaultProps={{ lang: "ar" as const, day: 1, width: 1080, height: 1350 }}
+        defaultProps={{ lang: "ar" as const, day: 1, design: "numeral" as const, width: 1080, height: 1350 }}
       />
       <Composition
         id="Teaser-D1-AR-X"
@@ -48,7 +48,7 @@ export const RemotionRoot: React.FC = () => {
         fps={T.fps}
         width={1200}
         height={1200}
-        defaultProps={{ lang: "ar" as const, day: 1, width: 1200, height: 1200 }}
+        defaultProps={{ lang: "ar" as const, day: 1, design: "numeral" as const, width: 1200, height: 1200 }}
       />
       <Composition
         id="Teaser-D1-EN"
@@ -57,7 +57,7 @@ export const RemotionRoot: React.FC = () => {
         fps={T.fps}
         width={1080}
         height={1350}
-        defaultProps={{ lang: "en" as const, day: 1, width: 1080, height: 1350 }}
+        defaultProps={{ lang: "en" as const, day: 1, design: "numeral" as const, width: 1080, height: 1350 }}
       />
     </>
   );
