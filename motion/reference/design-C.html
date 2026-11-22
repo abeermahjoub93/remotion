@@ -1,7 +1,7 @@
 <!doctype html>
 <!--
-  MUNTABIQ · "من 10 جداول إلى شاشة وحدة" · design C, v3 (approved still)
-  Green background (softly blurred pattern). The 10 Excel-style sheets merge into the
+  MUNTABIQ · "من 10 جداول إلى شاشة وحدة" · design C, v4 (approved still)
+  Plain Royal Green background (no pattern). The 10 Excel-style sheets merge into the
   real MUNTABIQ dashboard, which then comes to the front, face-on: this still is the end.
   Source of truth for layout, sizes, colours and the CSS 3D isometric stack.
   Brand: SecureLogX Brand v3. Canvas 1080 × 1350.
@@ -18,13 +18,7 @@
   html, body { margin: 0; padding: 0; background: #06572D; }
   .canvas { position: relative; width: 1080px; height: 1350px; overflow: hidden; background: #06572D; }
 
-  /* Royal Green panel with the brand pattern (lighter green linework) */
-  .pattern {
-    position: absolute; inset: 0;
-    background-image: url("../public/brand-pattern-green-blur.png");
-    background-size: 1300px auto; background-repeat: repeat; background-position: 0px 0px;
-    opacity: 0.3;
-  }
+  /* plain Royal Green panel */
 
   /* soft green glow behind the dashboard */
   .glow {
@@ -61,7 +55,6 @@
 </head>
 <body>
 <div class="canvas">
-  <div class="pattern"></div>
   <div class="glow"></div>
 
   <div class="front"><img src="../public/muntabiq-dashboard.png" alt="MUNTABIQ dashboard" /></div>

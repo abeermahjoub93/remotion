@@ -188,26 +188,28 @@ export const Scene: React.FC<SceneProps> = ({ layout, freezeAt, music }) => {
       style={{ backgroundColor: COLORS.background, overflow: "hidden" }}
     >
       {/* brand pattern, tiled at 1300 px wide (Img tiles so the renderer waits for them) */}
-      <AbsoluteFill style={{ opacity: patternOpacity }}>
-        {[0, 1].map((col) =>
-          [0, 1].map((row) => (
-            <Img
-              key={`${col}-${row}`}
-              src={staticFile(PATTERN.file)}
-              style={{
-                position: "absolute",
-                left:
-                  PATTERN.x +
-                  drift +
-                  (col - (drift > 0 ? 1 : 0)) * PATTERN.tileWidth,
-                top: PATTERN.y + row * PATTERN.tileHeight,
-                width: PATTERN.tileWidth,
-                height: PATTERN.tileHeight,
-              }}
-            />
-          )),
-        )}
-      </AbsoluteFill>
+      {PATTERN.opacity > 0 ? (
+        <AbsoluteFill style={{ opacity: patternOpacity }}>
+          {[0, 1].map((col) =>
+            [0, 1].map((row) => (
+              <Img
+                key={`${col}-${row}`}
+                src={staticFile(PATTERN.file)}
+                style={{
+                  position: "absolute",
+                  left:
+                    PATTERN.x +
+                    drift +
+                    (col - (drift > 0 ? 1 : 0)) * PATTERN.tileWidth,
+                  top: PATTERN.y + row * PATTERN.tileHeight,
+                  width: PATTERN.tileWidth,
+                  height: PATTERN.tileHeight,
+                }}
+              />
+            )),
+          )}
+        </AbsoluteFill>
+      ) : null}
 
       {/* content block: 1080 × 1350, re-centred inside the 9:16 safe area */}
       <div

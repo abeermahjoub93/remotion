@@ -1,5 +1,5 @@
-// Final resting values, copied from reference/design-C.html (v3: green background with a
-// softly blurred pattern, real MUNTABIQ dashboard brought to the front). Do not estimate. The animation interpolates towards these;
+// Final resting values, copied from reference/design-C.html (v4: plain Royal Green
+// background, real MUNTABIQ dashboard brought to the front). Do not estimate. The animation interpolates towards these;
 // from frame 330 everything sits here exactly.
 
 export const CANVAS = { w: 1080, h: 1350 } as const;
@@ -14,8 +14,8 @@ export const COLORS = {
   white: "#FFFFFF",
 } as const;
 
-// brand-pattern-green-blur.png, tile image 1300 × 1401 px
-export const PATTERN = { file: "brand-pattern-green-blur.png", tileWidth: 1300, tileHeight: 1401, opacity: 0.3, x: 0, y: 0 } as const;
+// v4: plain green background, no pattern (opacity 0 = the pattern layer is not rendered)
+export const PATTERN = { file: "brand-pattern-green-blur.png", tileWidth: 1300, tileHeight: 1401, opacity: 0, x: 0, y: 0 } as const;
 
 // glow: behind the isometric stack while it is on screen, then behind the front dashboard (final)
 export const STACK_GLOW = { left: 140, top: 450, width: 800, height: 400 } as const;
