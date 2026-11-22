@@ -1,5 +1,5 @@
-// Final resting values, copied from reference/design-C.html (v2: green background,
-// real MUNTABIQ dashboard). Do not estimate. The animation interpolates towards these;
+// Final resting values, copied from reference/design-C.html (v3: green background with a
+// softly blurred pattern, real MUNTABIQ dashboard brought to the front). Do not estimate. The animation interpolates towards these;
 // from frame 330 everything sits here exactly.
 
 export const CANVAS = { w: 1080, h: 1350 } as const;
@@ -17,7 +17,12 @@ export const COLORS = {
 // brand-pattern-green-blur.png, tile image 1300 × 1401 px
 export const PATTERN = { file: "brand-pattern-green-blur.png", tileWidth: 1300, tileHeight: 1401, opacity: 0.3, x: 0, y: 0 } as const;
 
-export const GLOW = { left: 140, top: 450, width: 800, height: 400, color: "10,163,84", alpha: 0.6 } as const;
+// glow: behind the isometric stack while it is on screen, then behind the front dashboard (final)
+export const STACK_GLOW = { left: 140, top: 450, width: 800, height: 400 } as const;
+export const GLOW = { left: 0, top: 300, width: 1080, height: 480, color: "10,163,84", alpha: 0.6 } as const;
+
+// final: the real dashboard, face-on (.front)
+export const FRONT = { left: 60, top: 300, width: 960, height: 475, border: 3, shadow: "0 30px 60px rgba(0,0,0,0.35)" } as const;
 
 // .stack: left 240, top 500, 600 × 300, rotateX(58deg) rotateZ(45deg), no perspective
 export const STACK = { left: 240, top: 500, width: 600, height: 300, rotateX: 58, rotateZ: 45, edgeZ: -14, scale: 1 } as const;
@@ -26,8 +31,8 @@ export const STACK = { left: 240, top: 500, width: 600, height: 300, rotateX: 58
 export const DASHBOARD = { file: "muntabiq-dashboard.png" } as const;
 
 
-// 10 sheets, bottom → top: tidy positions they ease into before merging into the
-// dashboard (from design C v1). In the final frame they have merged: opacity 0.
+// 10 Excel-style sheets, bottom → top: tidy positions they ease into before merging into
+// the dashboard (from design C v1). Not in the final frame (merged, then the stack leaves).
 export const SHEETS = [
   { x: 0, y: 0, z: 24, r: 0, o: 0.94 },
   { x: 2, y: -2, z: 46, r: -0.6, o: 0.88 },
@@ -40,12 +45,13 @@ export const SHEETS = [
   { x: -12, y: 11, z: 256, r: 2.7, o: 0.46 },
   { x: 14, y: -13, z: 294, r: -3, o: 0.4 },
 ] as const;
-export const SHEET_GRID = { vStep: 56, hStep: 113, lineOpacity: 0.22, borderOpacity: 0.85 } as const;
+// spreadsheet look: row-number column + 7 columns, header row + 12 rows (600 × 300)
+export const EXCEL = { rowHeader: 40, colWidth: 80, cols: 7, headerHeight: 24, rowHeight: 23, rows: 12, fill: 0.78 } as const;
 
 export const TAG = { left: 72, top: 84, fontSize: 26, cut: 14 } as const;
 export const LOGO = { top: 64, right: 72, height: 80 } as const;
 
-// "10" label: only during the mess (gone by the final frame)
+// labels: only during the story (gone by the final frame)
 export const LABEL_10 = { left: 72, top: 250, width: 190, pointer: "268,318 300,318 333,285" } as const;
 export const LABEL_1 = { left: 818, top: 470, width: 190, pointer: "760,654 800,614 812,614" } as const;
 export const LABEL_TYPE = { numSize: 120, txtSize: 30, txtGap: 4 } as const;
