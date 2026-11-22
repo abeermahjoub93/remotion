@@ -1,0 +1,43 @@
+{
+  "name": "teaser",
+  "version": "1.0.0",
+  "description": "My Remotion video",
+  "repository": {},
+  "license": "UNLICENSED",
+  "engines": {
+    "node": "^20.19.0 || ^22.13.0 || >=24"
+  },
+  "private": true,
+  "dependencies": {
+    "@remotion/cli": "4.0.545",
+    "@remotion/fonts": "^4.0.545",
+    "@remotion/google-fonts": "^4.0.545",
+    "react": "19.3.1",
+    "react-dom": "19.3.1",
+    "remotion": "4.0.545"
+  },
+  "devDependencies": {
+    "@remotion/eslint-config-flat": "4.0.545",
+    "@types/react": "19.3.0",
+    "@types/web": "0.0.166",
+    "eslint": "10.12.0",
+    "pixelmatch": "^5.3.0",
+    "pngjs": "^7.0.0",
+    "prettier": "3.8.1",
+    "typescript": "5.9.3"
+  },
+  "scripts": {
+    "dev": "remotion studio",
+    "build": "remotion bundle",
+    "upgrade": "remotion upgrade",
+    "lint": "eslint src && tsc",
+    "render:ar": "remotion render Teaser-D6-AR out/Teaser-D6-AR.mp4 --codec=h264 --crf=18 --pixel-format=yuv420p --color-space=bt709",
+    "render:ar-x": "remotion render Teaser-D6-AR-X out/Teaser-D6-AR-X.mp4 --codec=h264 --crf=18 --pixel-format=yuv420p --color-space=bt709",
+    "render:en": "remotion render Teaser-D6-EN out/Teaser-D6-EN.mp4 --codec=h264 --crf=18 --pixel-format=yuv420p --color-space=bt709",
+    "render:x-still": "remotion still Teaser-D6-AR-X out/Teaser-D6-AR-X.png --frame=239 --image-format=png",
+    "render:all": "npm run render:ar && npm run render:ar-x && npm run render:en && npm run render:x-still"
+  },
+  "allowScripts": {
+    "esbuild": false
+  }
+}
