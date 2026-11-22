@@ -9,7 +9,6 @@ import {
   delayRender,
   getStaticFiles,
   interpolate,
-  interpolateColors,
   random,
   spring,
   staticFile,
@@ -22,8 +21,8 @@ import {
   CANVAS,
   COLORS,
   CORNER,
+  DASHBOARD,
   GLOW,
-  HEADER_BAR,
   HEADLINE,
   LABEL_1,
   LABEL_10,
@@ -37,8 +36,6 @@ import {
   STACK,
   SUB,
   TAG,
-  TILE,
-  TILES,
 } from "./layout";
 
 export type SceneProps = {
@@ -58,7 +55,7 @@ const mix = (a: number, b: number, t: number) => a + (b - a) * t;
 const DROP_START = 30;
 const DROP_EVERY = 8;
 const MERGE = 120;
-const SETTLE = 240; // sheets exactly at rest from here
+const SETTLE = 230; // sheets have merged into the dashboard from here
 
 const sheetGrid = `repeating-linear-gradient(90deg, rgba(255,255,255,${SHEET_GRID.lineOpacity}) 0 1px, transparent 1px ${SHEET_GRID.vStep}px), repeating-linear-gradient(0deg, rgba(255,255,255,${SHEET_GRID.lineOpacity}) 0 1px, transparent 1px ${SHEET_GRID.hStep}px)`;
 
@@ -118,7 +115,8 @@ export const Scene: React.FC<SceneProps> = ({ layout, freezeAt, music }) => {
   // the stack
   const push = interpolate(f, [0, 359], [0.97, STACK.scale], clamp);
   const merge = f >= SETTLE ? 1 : spring({ frame: f - MERGE, fps, config: { damping: 20, overshootClamping: true }, durationInFrames: 60 });
-  const compress = f < 210 ? ease(f, 160, 205, 1, 0.12) : ease(f, 210, 238, 0.12, 1);
+  const compress = ease(f, 165, 205, 1, 0.06);
+  const sheetsOut = ease(f, 200, 222, 1, 0); // sheets dissolve into the dashboard
   const lit = ease(f, MERGE, 200, 0.4, 1);
   const glowP = ease(f, MERGE, 210, 0, 1);
   const landed = SHEETS.filter((_, i) => f >= DROP_START + i * DROP_EVERY + 12).length;
@@ -134,14 +132,14 @@ export const Scene: React.FC<SceneProps> = ({ layout, freezeAt, music }) => {
   const reel = layout === "9x16";
 
   return (
-    <AbsoluteFill style={{ backgroundColor: COLORS.charcoal, overflow: "hidden" }}>
+    <AbsoluteFill style={{ backgroundColor: COLORS.background, overflow: "hidden" }}>
       {/* brand pattern, tiled at 1300 px wide (Img tiles so the renderer waits for them) */}
       <AbsoluteFill style={{ opacity: patternOpacity }}>
         {[0, 1].map((col) =>
           [0, 1].map((row) => (
             <Img
               key={`${col}-${row}`}
-              src={staticFile("brand-pattern-blur.png")}
+              src={staticFile(PATTERN.file)}
               style={{
                 position: "absolute",
                 left: PATTERN.x + drift + (col - (drift > 0 ? 1 : 0)) * PATTERN.tileWidth,
@@ -157,7 +155,7 @@ export const Scene: React.FC<SceneProps> = ({ layout, freezeAt, music }) => {
       {/* content block: 1080 × 1350, re-centred inside the 9:16 safe area */}
       <div style={{ position: "absolute", left: 0, top: reel ? REEL.contentOffsetY : 0, width: CANVAS.w, height: CANVAS.h }}>
         {/* stack layer, with the slow camera push */}
-        <div style={{ position: "absolute", inset: 0, scale: `${push}`, transformOrigin: `540px 700px` }}>
+        <div style={{ position: "absolute", inset: 0, scale: `${push}`, transformOrigin: `540px 650px` }}>
           <div
             style={{
               position: "absolute",
@@ -165,7 +163,7 @@ export const Scene: React.FC<SceneProps> = ({ layout, freezeAt, music }) => {
               top: GLOW.top,
               width: GLOW.width,
               height: GLOW.height,
-              background: "radial-gradient(ellipse 50% 50% at 50% 50%, rgba(8,125,64,0.55), rgba(8,125,64,0) 70%)",
+              background: `radial-gradient(ellipse 50% 50% at 50% 50%, rgba(${GLOW.color},${GLOW.alpha}), rgba(${GLOW.color},0) 70%)`,
               opacity: glowP,
               scale: `${mix(0.6, 1, glowP)}`,
             }}
@@ -175,8 +173,8 @@ export const Scene: React.FC<SceneProps> = ({ layout, freezeAt, music }) => {
               position: "absolute",
               left: STACK.left,
               top: STACK.top,
-              width: STACK.size,
-              height: STACK.size,
+              width: STACK.width,
+              height: STACK.height,
               transformStyle: "preserve-3d",
               transform: `rotateX(${STACK.rotateX}deg) rotateZ(${STACK.rotateZ}deg)`,
               opacity: ease(f, 0, 30, 0, 1),
@@ -187,10 +185,10 @@ export const Scene: React.FC<SceneProps> = ({ layout, freezeAt, music }) => {
                 position: "absolute",
                 left: 0,
                 top: 0,
-                width: STACK.size,
-                height: STACK.size,
+                width: STACK.width,
+                height: STACK.height,
                 boxSizing: "border-box",
-                background: interpolateColors(lit, [0, 1], [COLORS.charcoal, COLORS.royal]),
+                background: COLORS.charcoal,
                 transform: `translateZ(${STACK.edgeZ}px)`,
               }}
             />
@@ -199,33 +197,18 @@ export const Scene: React.FC<SceneProps> = ({ layout, freezeAt, music }) => {
                 position: "absolute",
                 left: 0,
                 top: 0,
-                width: STACK.size,
-                height: STACK.size,
+                width: STACK.width,
+                height: STACK.height,
                 boxSizing: "border-box",
-                background: interpolateColors(lit, [0, 1], [COLORS.charcoal, COLORS.green]),
-                border: `2px solid ${interpolateColors(lit, [0, 1], [COLORS.charcoal, COLORS.highlight])}`,
+                background: COLORS.green,
+                border: `2px solid ${COLORS.highlight}`,
+                overflow: "hidden",
               }}
             >
-              <div style={{ position: "absolute", ...HEADER_BAR, background: COLORS.white, scale: `${ease(f, 132, 150, 0, 1)} 1`, transformOrigin: "right center" }} />
-              {TILES.map((t, k) => {
-                const a = 140 + k * 14;
-                return (
-                  <div key={k} style={{ position: "absolute", left: t.left, top: t.top, width: TILE.width, height: TILE.height, background: `rgba(255,255,255,${TILE.fill})`, opacity: ease(f, a, a + 14, 0, 1) }}>
-                    <div
-                      style={{
-                        position: "absolute",
-                        right: TILE.barRight,
-                        bottom: TILE.barBottom,
-                        width: t.bar,
-                        height: TILE.barHeight,
-                        background: COLORS.white,
-                        scale: `${ease(f, a + 6, a + 26, 0, 1)} 1`,
-                        transformOrigin: "right center",
-                      }}
-                    />
-                  </div>
-                );
-              })}
+              <Img
+                src={staticFile(DASHBOARD.file)}
+                style={{ position: "absolute", left: 0, top: 0, width: "100%", height: "100%", objectFit: "cover", display: "block", filter: lit < 1 ? `brightness(${lit})` : undefined }}
+              />
             </div>
 
             {SHEETS.map((s, i) => {
@@ -247,13 +230,13 @@ export const Scene: React.FC<SceneProps> = ({ layout, freezeAt, music }) => {
                     position: "absolute",
                     left: 0,
                     top: 0,
-                    width: STACK.size,
-                    height: STACK.size,
+                    width: STACK.width,
+                    height: STACK.height,
                     boxSizing: "border-box",
                     border: `2px solid rgba(255,255,255,${SHEET_GRID.borderOpacity})`,
                     backgroundImage: sheetGrid,
                     transform: `translate3d(${x}px, ${y}px, ${z}px) rotateZ(${r}deg)`,
-                    opacity: f < d ? 0 : s.o * Math.min(1, land * 3),
+                    opacity: f < d || f >= SETTLE ? 0 : s.o * Math.min(1, land * 3) * sheetsOut,
                   }}
                 />
               );
@@ -289,8 +272,11 @@ export const Scene: React.FC<SceneProps> = ({ layout, freezeAt, music }) => {
           />
         ) : null}
 
-        <Label {...LABEL_10} num={String(Math.max(1, landed))} txt="جداول متفرقة" p={ease(f, 40, 52, 0, 1)} />
-        <Pointer points={LABEL_10.pointer} p={ease(f, 44, 60, 0, 1)} />
+        {/* "10" leaves with the sheets */}
+        <div style={{ opacity: ease(f, 180, 200, 1, 0) }}>
+          <Label {...LABEL_10} num={String(Math.max(1, landed))} txt="جداول متفرقة" p={ease(f, 40, 52, 0, 1)} />
+          <Pointer points={LABEL_10.pointer} p={ease(f, 44, 60, 0, 1)} />
+        </div>
         <Label {...LABEL_1} num="1" txt="شاشة وحدة" p={ease(f, 190, 204, 0, 1)} />
         <Pointer points={LABEL_1.pointer} p={ease(f, 194, 210, 0, 1)} />
 
@@ -299,7 +285,7 @@ export const Scene: React.FC<SceneProps> = ({ layout, freezeAt, music }) => {
           <div style={{ clipPath: `inset(-30px -30px -30px ${line1}%)` }}>من 10 جداول</div>
           <div style={{ clipPath: `inset(-30px -30px -30px ${line2}%)` }}>إلى شاشة وحدة</div>
         </div>
-        <div style={{ position: "absolute", right: RULE.right, top: RULE.top, width: RULE.width, height: RULE.height, background: COLORS.green, scale: `${ruleP} 1`, transformOrigin: "right center" }} />
+        <div style={{ position: "absolute", right: RULE.right, top: RULE.top, width: RULE.width, height: RULE.height, background: RULE.color, scale: `${ruleP} 1`, transformOrigin: "right center" }} />
         <div style={{ position: "absolute", right: SUB.right, top: SUB.top, direction: "rtl", textAlign: "right", color: COLORS.white, fontFamily: AR, fontWeight: 400, fontSize: SUB.fontSize, lineHeight: SUB.lineHeight, opacity: subP, translate: `0px ${16 * (1 - subP)}px` }}>
           الالتزام في عرض واحد مباشر، لكل القطاعات.
         </div>

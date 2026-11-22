@@ -1,6 +1,8 @@
 <!doctype html>
 <!--
-  MUNTABIQ · "من 10 جداول إلى شاشة وحدة" · design C (approved still)
+  MUNTABIQ · "من 10 جداول إلى شاشة وحدة" · design C, v2 (approved still)
+  Green background; the 10 sheets merge into the real MUNTABIQ dashboard, which is
+  all that remains in the final frame (sheets and the "10" label are gone by then).
   Source of truth for layout, sizes, colours and the CSS 3D isometric stack.
   Brand: SecureLogX Brand v3. Canvas 1080 × 1350.
 -->
@@ -13,32 +15,32 @@
   @font-face { font-family: "Almarai"; font-weight: 800; src: url("fonts/Almarai-800.ttf"); }
   @font-face { font-family: "Barlow Condensed"; font-weight: 700; src: url("fonts/BarlowCondensed-700.ttf"); }
 
-  html, body { margin: 0; padding: 0; background: #262626; }
-  .canvas { position: relative; width: 1080px; height: 1350px; overflow: hidden; background: #262626; }
+  html, body { margin: 0; padding: 0; background: #06572D; }
+  .canvas { position: relative; width: 1080px; height: 1350px; overflow: hidden; background: #06572D; }
 
+  /* Royal Green panel with the brand pattern (lighter green linework) */
   .pattern {
     position: absolute; inset: 0;
-    background-image: url("../public/brand-pattern-blur.png");
+    background-image: url("../public/brand-pattern-green-blur.png");
     background-size: 1300px auto; background-repeat: repeat; background-position: 0px 0px;
-    opacity: 0.22;
+    opacity: 0.3;
   }
 
-  /* soft green glow under the base plane */
+  /* soft green glow under the dashboard plane */
   .glow {
-    position: absolute; left: 190px; top: 560px; width: 700px; height: 400px;
-    background: radial-gradient(ellipse 50% 50% at 50% 50%, rgba(8,125,64,0.55), rgba(8,125,64,0) 70%);
+    position: absolute; left: 140px; top: 450px; width: 800px; height: 400px;
+    background: radial-gradient(ellipse 50% 50% at 50% 50%, rgba(10,163,84,0.6), rgba(10,163,84,0) 70%);
   }
 
-  /* isometric stack: 340 × 340 planes centred at (540, 700), no perspective */
+  /* isometric stack: 600 × 300 planes centred at (540, 650), no perspective */
   .stack {
-    position: absolute; left: 370px; top: 530px; width: 340px; height: 340px;
+    position: absolute; left: 240px; top: 500px; width: 600px; height: 300px;
     transform-style: preserve-3d; transform: rotateX(58deg) rotateZ(45deg);
   }
-  .plane { position: absolute; left: 0; top: 0; width: 340px; height: 340px; box-sizing: border-box; }
-  .edge { background: #06572D; transform: translateZ(-14px); }
-  .base { background: #087D40; border: 2px solid #0aa354; }
-  .bar { position: absolute; background: #ffffff; }
-  .tile { position: absolute; width: 138px; height: 116px; background: rgba(255,255,255,0.12); }
+  .plane { position: absolute; left: 0; top: 0; width: 600px; height: 300px; box-sizing: border-box; }
+  .edge { background: #262626; transform: translateZ(-14px); }
+  .base { background: #087D40; border: 2px solid #0aa354; overflow: hidden; }
+  .base img { position: absolute; left: 0; top: 0; width: 100%; height: 100%; object-fit: cover; display: block; }
   .sheet {
     border: 2px solid rgba(255,255,255,0.85);
     background-image:
@@ -60,7 +62,7 @@
   .pointer { position: absolute; left: 0; top: 0; }
 
   .headline { position: absolute; right: 72px; top: 930px; direction: rtl; text-align: right; color: #ffffff; font: 800 76px/1.25 "Almarai"; }
-  .rule { position: absolute; right: 72px; top: 1132px; width: 180px; height: 6px; background: #087D40; }
+  .rule { position: absolute; right: 72px; top: 1132px; width: 180px; height: 6px; background: #ffffff; }
   .sub { position: absolute; right: 72px; top: 1162px; direction: rtl; text-align: right; color: #ffffff; font: 400 30px/1.4 "Almarai"; }
 
   .byline { position: absolute; right: 72px; bottom: 64px; display: flex; flex-direction: row; align-items: center; gap: 16px; direction: rtl; }
@@ -77,34 +79,15 @@
 
   <div class="stack">
     <div class="plane edge"></div>
-    <div class="plane base">
-      <div class="bar" style="left:24px; top:24px; width:292px; height:26px;"></div>
-      <div class="tile" style="left:24px; top:70px;"><div class="bar" style="right:14px; bottom:16px; width:96px; height:14px;"></div></div>
-      <div class="tile" style="left:178px; top:70px;"><div class="bar" style="right:14px; bottom:16px; width:70px; height:14px;"></div></div>
-      <div class="tile" style="left:24px; top:200px;"><div class="bar" style="right:14px; bottom:16px; width:108px; height:14px;"></div></div>
-      <div class="tile" style="left:178px; top:200px;"><div class="bar" style="right:14px; bottom:16px; width:56px; height:14px;"></div></div>
-    </div>
-    <!-- 10 sheets, bottom → top: translate3d(x, y, z) rotateZ(r), opacity o -->
-    <div class="plane sheet" style="transform: translate3d(0px, 0px, 24px) rotateZ(0deg); opacity: 0.94;"></div>
-    <div class="plane sheet" style="transform: translate3d(2px, -2px, 46px) rotateZ(-0.6deg); opacity: 0.88;"></div>
-    <div class="plane sheet" style="transform: translate3d(-3px, 3px, 70px) rotateZ(0.8deg); opacity: 0.82;"></div>
-    <div class="plane sheet" style="transform: translate3d(4px, -4px, 96px) rotateZ(-1deg); opacity: 0.76;"></div>
-    <div class="plane sheet" style="transform: translate3d(-5px, 5px, 124px) rotateZ(1.3deg); opacity: 0.7;"></div>
-    <div class="plane sheet" style="transform: translate3d(7px, -6px, 154px) rotateZ(-1.6deg); opacity: 0.64;"></div>
-    <div class="plane sheet" style="transform: translate3d(-8px, 8px, 186px) rotateZ(2deg); opacity: 0.58;"></div>
-    <div class="plane sheet" style="transform: translate3d(10px, -9px, 220px) rotateZ(-2.3deg); opacity: 0.52;"></div>
-    <div class="plane sheet" style="transform: translate3d(-12px, 11px, 256px) rotateZ(2.7deg); opacity: 0.46;"></div>
-    <div class="plane sheet" style="transform: translate3d(14px, -13px, 294px) rotateZ(-3deg); opacity: 0.4;"></div>
+    <div class="plane base"><img src="../public/muntabiq-dashboard.png" alt="MUNTABIQ dashboard" /></div>
   </div>
 
   <div class="tag">قبل / بعد</div>
   <img class="logo" src="../public/muntabiq-logo.png" alt="" onerror="this.style.display='none'" />
 
-  <!-- labels + 45° pointers -->
-  <div class="label" style="left: 72px; top: 330px;"><div class="num">10</div><div class="txt">جداول متفرقة</div></div>
-  <svg class="pointer" width="1080" height="1350"><polyline points="270,400 302,400 336,434" fill="none" stroke="#ffffff" stroke-width="2" /></svg>
-  <div class="label" style="left: 818px; top: 560px;"><div class="num">1</div><div class="txt">شاشة وحدة</div></div>
-  <svg class="pointer" width="1080" height="1350"><polyline points="786,700 834,652 852,652" fill="none" stroke="#ffffff" stroke-width="2" /></svg>
+  <!-- label + 45° pointer -->
+  <div class="label" style="left: 818px; top: 470px;"><div class="num">1</div><div class="txt">شاشة وحدة</div></div>
+  <svg class="pointer" width="1080" height="1350"><polyline points="760,654 800,614 812,614" fill="none" stroke="#ffffff" stroke-width="2" /></svg>
 
   <div class="headline">من 10 جداول<br />إلى شاشة وحدة</div>
   <div class="rule"></div>
