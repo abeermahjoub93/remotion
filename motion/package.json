@@ -1,0 +1,44 @@
+{
+  "name": "motion",
+  "version": "1.0.0",
+  "description": "My Remotion video",
+  "repository": {},
+  "license": "UNLICENSED",
+  "engines": {
+    "node": "^20.19.0 || ^22.13.0 || >=24"
+  },
+  "private": true,
+  "dependencies": {
+    "@remotion/cli": "4.0.545",
+    "@remotion/fonts": "^4.0.545",
+    "@remotion/google-fonts": "^4.0.545",
+    "@remotion/media": "^4.0.545",
+    "react": "19.3.1",
+    "react-dom": "19.3.1",
+    "remotion": "4.0.545"
+  },
+  "devDependencies": {
+    "@remotion/eslint-config-flat": "4.0.545",
+    "@types/react": "19.3.0",
+    "@types/web": "0.0.166",
+    "eslint": "10.12.0",
+    "pixelmatch": "^5.3.0",
+    "pngjs": "^7.0.0",
+    "prettier": "3.8.1",
+    "typescript": "5.9.3"
+  },
+  "scripts": {
+    "dev": "remotion studio",
+    "build": "remotion bundle",
+    "upgrade": "remotion upgrade",
+    "lint": "eslint src && tsc",
+    "render:post": "remotion render Post45 out/MUNTABIQ_10-to-1_4x5.mp4 --codec=h264 --crf=18 --pixel-format=yuv420p --color-space=bt709",
+    "render:reel": "remotion render Reel916 out/MUNTABIQ_10-to-1_9x16.mp4 --codec=h264 --crf=18 --pixel-format=yuv420p --color-space=bt709",
+    "render:poster": "remotion still Post45 out/MUNTABIQ_10-to-1_poster.png --frame=359 --image-format=png",
+    "render:all": "npm run render:post && npm run render:reel && npm run render:poster",
+    "check": "for f in 0 60 150 240 359; do remotion still Post45 out/check/frame-$f.png --frame=$f --image-format=png; done && node scripts/diff.mjs out/check/frame-359.png reference/design-C-final-frame.png out/check/diff-359.png out/check/side-by-side-359.png"
+  },
+  "allowScripts": {
+    "esbuild": false
+  }
+}
