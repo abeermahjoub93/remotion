@@ -16,6 +16,8 @@ import { T } from "./timing";
 export type Lang = "ar" | "en";
 export type TeaserProps = {
   readonly lang: Lang;
+  // countdown day shown in the tag ("باقي 6" / "D - 6")
+  readonly day: number;
   readonly width: number;
   readonly height: number;
 };
@@ -32,8 +34,8 @@ const slideIn = (p: number, lang: Lang, distance: number = T.slideDistance) => {
 };
 
 const COPY = {
-  ar: { tag: "باقي 6", headline: "فيه شي جاي.", date: "29.11" },
-  en: { tag: "D - 6", headline: "Something is coming.", date: "29.11" },
+  ar: { tag: (day: number) => `باقي ${day}`, headline: "فيه شي جاي.", date: "29.11" },
+  en: { tag: (day: number) => `D - ${day}`, headline: "Something is coming.", date: "29.11" },
 } as const;
 
 // Layout per format. Margins sit inside the 90% title-safe area (5% each side).
@@ -102,7 +104,7 @@ const BlurredDashboard: React.FC<{ readonly f: number; readonly lang: Lang; read
   );
 };
 
-const TextBlock: React.FC<{ readonly f: number; readonly lang: Lang; readonly L: Layout }> = ({ f, lang, L }) => {
+const TextBlock: React.FC<{ readonly f: number; readonly lang: Lang; readonly day: number; readonly L: Layout }> = ({ f, lang, day, L }) => {
   const ar = lang === "ar";
   const copy = COPY[lang];
   const family = ar ? FONTS.ar : FONTS.en;
@@ -133,7 +135,7 @@ const TextBlock: React.FC<{ readonly f: number; readonly lang: Lang; readonly L:
           ...slideIn(progress(f, T.tagIn), lang),
         }}
       >
-        {copy.tag}
+        {copy.tag(day)}
       </div>
       <div
         style={{
@@ -177,7 +179,7 @@ const Logo: React.FC<{ readonly L: Layout }> = ({ L }) => {
   return <Img src={staticFile(WORDMARK.file)} style={{ position: "absolute", top: L.margin, right: L.margin, width: w, height: h }} />;
 };
 
-export const Teaser: React.FC<TeaserProps> = ({ lang, width, height }) => {
+export const Teaser: React.FC<TeaserProps> = ({ lang, day, width, height }) => {
   const f = useCurrentFrame();
   const [handle] = useState(() => delayRender("Loading Almarai + Barlow"));
   useEffect(() => {
@@ -189,7 +191,7 @@ export const Teaser: React.FC<TeaserProps> = ({ lang, width, height }) => {
     <AbsoluteFill style={{ backgroundColor: COLORS.charcoal, overflow: "hidden" }}>
       <Pattern f={f} />
       <BlurredDashboard f={f} lang={lang} L={L} width={width} />
-      <TextBlock f={f} lang={lang} L={L} />
+      <TextBlock f={f} lang={lang} day={day} L={L} />
       <Logo L={L} />
     </AbsoluteFill>
   );

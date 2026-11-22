@@ -35,7 +35,12 @@
     "render:ar-x": "remotion render Teaser-D6-AR-X out/Teaser-D6-AR-X.mp4 --codec=h264 --crf=18 --pixel-format=yuv420p --color-space=bt709",
     "render:en": "remotion render Teaser-D6-EN out/Teaser-D6-EN.mp4 --codec=h264 --crf=18 --pixel-format=yuv420p --color-space=bt709",
     "render:x-still": "remotion still Teaser-D6-AR-X out/Teaser-D6-AR-X.png --frame=239 --image-format=png",
-    "render:all": "npm run render:ar && npm run render:ar-x && npm run render:en && npm run render:x-still"
+    "render:all": "npm run render:ar && npm run render:ar-x && npm run render:en && npm run render:x-still",
+    "render:d1-ar": "remotion render Teaser-D1-AR out/Teaser-D1-AR.mp4 --codec=h264 --crf=18 --pixel-format=yuv420p --color-space=bt709",
+    "render:d1-ar-x": "remotion render Teaser-D1-AR-X out/Teaser-D1-AR-X.mp4 --codec=h264 --crf=18 --pixel-format=yuv420p --color-space=bt709",
+    "render:d1-en": "remotion render Teaser-D1-EN out/Teaser-D1-EN.mp4 --codec=h264 --crf=18 --pixel-format=yuv420p --color-space=bt709",
+    "render:d1-x-still": "remotion still Teaser-D1-AR-X out/Teaser-D1-AR-X.png --frame=239 --image-format=png",
+    "render:d1": "npm run render:d1-ar && npm run render:d1-ar-x && npm run render:d1-en && npm run render:d1-x-still"
   },
   "allowScripts": {
     "esbuild": false
